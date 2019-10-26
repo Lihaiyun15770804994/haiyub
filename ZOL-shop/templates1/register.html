@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="/static1/css/register.css" rel="stylesheet" type="text/css" />
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+
+	<body>
+		<div class="homePage">
+			<div class="header">
+				<div class="register_bar">
+					<a href="{% url 'users:login' %}">立即登录</a>
+					"已有ZOL商城帐号！"
+				</div>
+				<div class="logo">
+					<a href="#">
+						<img src="/static1/img/login_1ogo.jpg..png" alt="" />
+						<p>中关村在线旗下网上商城</p>
+					</a>
+				</div>
+			</div>
+			<!--注册-->
+			<div class="loginBox">
+				<div class="ad_div">
+					<a href="#"><img src="/static1/img/ad2.jpg"/></a>
+				</div>
+				<div class="login_layer">
+					<div class="login_header">
+						<a href="#" class="mobil">手机动态码登录</a>
+						<h3>注册ZOL商城帐号</h3>
+					</div>
+					<div class="login_content">
+
+                        <form method="post" enctype="multipart/form-data" action="">
+                            {% csrf_token %}
+                            <input type="text" placeholder="手机号/邮箱/用户名" name="txt" class="userName" required />
+                            <input type="password" placeholder="密码" name="pwd" class="psd" required />
+                            <input type="submit" value="注册" class="logining" />
+                        </form>
+						<div class="partners">
+							<p>合作帐号登录</p>
+						</div>
+						<div class="loginFooter">
+							<a href="#"><img src="/static1/img/weixin.jpg"/></a>
+							<a href="#"><img src="/static1/img/weibo.jpg"/></a>
+							<a href="#"><img src="/static1/img/qq.jpg"/></a>
+							<a href="#"><img src="/static1/img/pay.jpg"/></a>
+							<a href="#"><img src="/static1/img/baidu.jpg"/></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="_center">
+					<div class="copyRight">
+					<div class="about">
+						<a href="#">关于ZOL商城</a>|
+						<a href="#">联系我们</a>|
+						<a href="#">帮助中心</a>
+					</div>
+					<div class="box_fr">
+						<p>&copy;2016.中关村在线&nbsp;</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

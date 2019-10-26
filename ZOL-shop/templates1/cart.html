@@ -1,0 +1,294 @@
+	<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/static1/css/cart.css"  rel="stylesheet" type="text/css"/>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<script type="text/javascript" src="/static1/js/jquery.cookie.js" ></script>
+		<script type="text/javascript" src="/static1/js/cart.js" ></script>
+	</head>
+	<body>
+		<!--头部-->
+		<div class="public-header">
+			<div class="top-bar">
+				<div class="container">
+					<ul class="site-about">
+						<li><a href="{% url 'contents:show' %}">ZOL商城</a></li>
+						<li><a href="#">购物车</a></li>
+						<li class="rss">
+							<span class="title">订阅团购推荐</span>
+							<div class="rss-layer">
+								<p>请输入您的电子邮箱地址</p>
+								<input type="text" value="" class="search-txt"/>
+								<input type="submit" value="确定" class="search-sub"/>
+								<span id="tuan-recommend">推荐时间：每周二,四,六(节假日除外)</span>
+							</div>
+						</li>
+						<li class="kefu">
+							客服电话：
+							<span>400-678-0068</span>
+						</li>
+					</ul>
+					<div class="userAbout">
+                        {% if not login %}
+                        <span>
+							您好，欢迎来Z团购物！请
+							<a href="{% url 'users:login' %}" class="loginNow">登录</a>|
+						</span>
+						<a href="{% url 'users:register' %}" class="registerNow">注册|</a>
+                        {% else %}
+                            <a href="#">欢迎你,亲爱的用户{{ username }}</a>
+                            <a href="{% url 'users:logout' %}">退出登录</a>
+                        {% endif %}
+
+						<a href="{% url 'orders:order' %}">我的订单</a>
+					</div>
+				</div>
+			</div>
+			<!--logo-->
+			<div class="wrapper">
+				<h1 class="logo_fl">
+					<a href="#" class="zol_logo"><img src="/static1/img/logo_03.jpg"/></a>
+				</h1>
+				<ul class="commitment">
+					<li><a href="#"><img src="/static1/img/diliver.jpg"/></a></li>
+					<li><a href="#"><img src="/static1/img/propei.jpg"/></a></li>
+					<li><a href="#"><img src="/static1/img/proservice.jpg"/></a></li>
+				</ul>
+				<div class="search_box">
+					<input type="text" value="请输入商品名" class="text" />
+					<input type="submit" value="搜索" class="btn"/>
+				</div>
+			</div>
+			<!--商品清单-->
+			<div class="wrapper">
+				<div class="container">
+                {% if data_list %}
+
+
+					<div class="step-section">
+						<div class="carList">
+							<table>
+								<tr>
+									<th class="goods"><span>商品</span></th>
+									<th class="unitprice"><span>单价(元)</span></th>
+									<th class="suits"><span>类型和数量</span></th>
+									<th class="total"><span>合计(元)</span></th>
+									<th class="inventory"><span>选中状态及总计</span></th>
+								</tr>
+                            {% for foo in data_list %}
+
+                                <tr class="current">
+                                
+                                    <td class='goods'>
+                                        <img src="{{ foo.img }}" alt="">
+                                        <h3 class='title' style="text-align: center;line-height: 52px ">{{ foo.name }}</h3>
+                                    </td>
+                                    <td class='unit-price'style="text-align: center">{{ foo.price }}</td>
+                                    <td class='suitId' style="text-align: center"><button class="jian" id="{{ foo.id }}" style="width: 20px">-</button> <strong>{{ foo.num }}</strong> <button class="jia" id="{{ foo.id }}" style="width: 20px">+</button></td>
+                                    <td class='total' style="text-align: center">{{ foo.allprice }}</td>
+                                    <td class='inventory'>
+                                        {% if foo.selected == '1' %}
+                                            <input type="checkbox" checked class="select_check" goodsid="{{ foo.id }}"/>
+                                        {% else %}
+                                            <input type="checkbox" class="select_check" goodsid="{{ foo.id }}"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="total"><button class="delete">删除</button></td>
+
+
+                                </tr>
+							{% endfor %}
+                            <td id="total-price" class='inventory'style="float: right;position: relative;left: 500px;">总计:{{ totalprice }}</td>
+							</table>
+                            <div class="caculate">
+                                全选:<input type="checkbox" checked class="select_all_check"/>
+                            </div>
+							<div class="_link">
+                                <a href="{% url 'orders:index' %}"><input type="button" value="下单" class="caculate"/></a>
+							</div>
+						</div>
+					</div>
+                {% else %}
+                    <div style="text-align: center;font-size: 30px;color: red;">你的购物车没有商品,请添加!!</div>
+                {% endif %}
+				</div>
+			</div>
+			<!--页脚-->
+
+		</div>
+	</body>
+</html>
+<script>
+    function cacl(){
+        var totalprice = 0
+        {#遍历所有的商品,把选中的商品总价相加#}
+        $('.current').each(function(){
+            {#找到选中的商品#}
+            if($(this).find('.select_check').prop('checked')){
+                var price=parseFloat($(this).find('.unit-price').text())
+                var count=parseFloat($(this).find('.suitId').find('strong').text())
+                totalprice += price*count
+            }
+        })
+        $('#total-price').text(totalprice)
+
+        {#遍历所有商品#}
+    }
+    function selectd(){
+        var flag = true
+        {#遍历所有的商品,把选中的商品总价相加#}
+        $('.current').each(function(){
+            {#找到选中的商品#}
+            if(!$(this).find('.select_check').prop('checked')){
+                flag = false
+                return false
+            }
+        })
+        if(flag){
+            $('.select_all_check').prop('checked',true)
+        }
+        else{
+            $('.select_all_check').prop('checked',false)
+        }
+
+        {#遍历所有商品#}
+    }
+    function selectd11(){
+        var flag = true
+        {#遍历所有的商品,把选中的商品总价相加#}
+        $('.current').each(function(){
+            {#找到选中的商品#}
+            if($(this).find('.select_check').prop('checked')){
+                flag = false
+                return false
+            }
+        })
+        if(flag){
+            $('.caculate').attr({'disabled':'disabled'})
+        }else{
+            $('.caculate').removeAttr('disabled')
+        }
+
+        {#遍历所有商品#}
+    }
+    $(function () {
+        selectd()
+        $('.jia').click(function(){
+            {#1.商品的数量加1#}
+            {#找出数量的值,是一个字符串,要转成整型#}
+            var num = parseInt($(this).siblings('strong').text())
+            num +=1
+
+            {#把数量值赋值到span 标签里面#}
+            $(this).siblings('strong').text(num)
+
+            {#获取商品的id和数量#}
+            var gid = $(this).attr('id')
+            var count = num
+            var selected = $('.select_check').prop('checked')?1:0
+            {#计算总价#}
+            cacl()
+            {#通过ajax来进行和后端进行交互#}
+            $.ajax({
+                url:"{% url 'carts:savedata' %}",
+                type:'post',
+                data:{'gid':gid,'count':count,'selected':selected},
+                dataType:'json',
+                headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                    success: function (data) {
+
+                    }
+            })
+        })
+        $('.jian').click(function(){
+            {#1.商品的数量加1#}
+            {#找出数量的值,是一个字符串,要转成整型#}
+            var num = parseInt($(this).siblings('strong').text())
+            num -=1
+            if(num==0){
+                $(this).parent().parent().remove()
+            }
+
+            {#把数量值赋值到span 标签里面#}
+            $(this).siblings('strong').text(num)
+
+            {#获取商品的id和数量#}
+            var gid = $(this).attr('id')
+            var count = num
+            var selected = $('.select_check').prop('checked')?1:0
+            {#计算总价#}
+            cacl()
+            {#通过ajax来进行和后端进行交互#}
+            $.ajax({
+                url:"{% url 'carts:savedata' %}",
+                type:'post',
+                data:{'gid':gid,'count':count,'selected':selected},
+                dataType:'json',
+                headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                    success: function (data) {
+
+                    }
+            })
+        })
+        $('.select_check').click(function(){
+            {#传递参数,一个是选中状态,一个是商品的id,一个是商品的数量#}
+            var gid  = $(this).attr('goodsid')
+            var count = $(this).parent().siblings('td[class=suitId]').find('strong').text()
+            var selected = $(this).prop('checked')?1:0
+            cacl()
+            selectd()
+            selectd11()
+            $.ajax({
+                url:"{% url 'carts:savedata' %}",
+                type:'post',
+                data:{'gid':gid,'count':count,'selected':selected},
+                dataType:'json',
+                headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                    success: function (data) {
+
+                    }
+            })
+
+        })
+
+        $('.select_all_check').click(function(){
+            {#让所有的复选框不选中#}
+            $('.select_check').prop('checked',$(this).prop('checked'))
+            var selected = $(this).prop('checked')?'1':'0'
+            cacl()
+            {#更改cookie的selected的状态#}
+            $.ajax({
+                url:"{% url 'carts:selects' %}",
+                type:'post',
+                data:{'selected':selected},
+                dataType:'json',
+                headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                    success: function (data) {
+
+                    }
+            })
+        })
+        $('.delete').click(function () {
+            var gid = $(this).parent().siblings('td[class=inventory]').find('input').attr('goodsid')
+            $(this).parent().parent().remove()
+            window.location.reload()
+            $.ajax({
+                url:"{% url 'carts:delete' %}",
+                type:'post',
+                data:{'gid':gid},
+                dataType:'json',
+                headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                    success: function (data) {
+
+                    }
+            })
+
+        })
+
+
+
+
+    })
+</script>

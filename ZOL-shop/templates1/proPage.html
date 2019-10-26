@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="/static1/css/productPage.css" rel="stylesheet" type="text/css" />
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+	<script type="text/javascript" src="/static1/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/static1/js/productPage.js"></script>
+    <style>
+        .detail>p{
+	font-size: 12px;
+}
+.singlePrice{
+	background: #efefef;
+	padding: 5px;
+	color:gray;
+	font-size: 10px;
+	margin-bottom: 150px;
+}
+.singlePrice span:nth-of-type(1){
+	color:#ce1a1b;
+	font-weight: bold;
+}
+.singlePrice span:nth-of-type(2){
+	color:#ce1a1b;
+	font-size: 16px;
+	font-weight: bold;
+}
+        .buyNumber{
+	font-size: 10px;
+	height: 20px;
+	line-height: 20px;
+}
+.buyNumber span{
+	display: inline-block;
+	width: 20px;
+	height:20px;
+	background: #eee;
+	font-size: 16px;
+	text-align: center;
+	line-height: 20px;
+	cursor: pointer;
+	user-select: none;
+	box-sizing: border-box;
+	border:1px solid #ccc;
+}
+.buyNumber i{
+	display: inline-block;
+	width:28px;
+	height: 20px;
+	box-sizing: border-box;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	transform: translateY(-2.5px);
+	text-align: center;
+	line-height: 20px;
+}
+.buyNumber b{
+	color:#ccc;
+	display: inline-block;
+	vertical-align: baseline
+}
+.buyNumber strong{
+	font-weight: normal;
+	color:#000;
+	display: inline-block;
+	vertical-align: baseline
+}
+        .purchase{
+            display: flex;
+            padding: 16px 36px;
+        }
+        .purchase div:nth-of-type(1){
+            background: #ce1a1b;
+            padding: 8px 16px;
+            color:#fff;
+            border-radius: 2px;
+            font-size: 14px;
+            margin-right: 5px;
+            user-select: none;
+            cursor: pointer;
+        }
+.purchase div:nth-of-type(2) {
+            padding: 8px 16px;
+            background: pink;
+            color: #ce1a1b;
+            border-radius: 2px;
+            font-size: 14px;
+            user-select: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+	<!--头部开始-->
+	<div class="public-header">
+		<div class="topBar">
+			<div class="container">
+				<ul class="site-about">
+					<li><a href="#">ZOL商城</a></li>
+					<li><a href="#">收藏</a></li>
+					<li class="rss">
+						<span class="title">订阅团购推荐</span>
+						<div class="rss-layer">
+							<p>请输入您的电子邮箱地址</p>
+							<input type="text" value="" class="search-txt" />
+							<input type="submit" value="确定" class="search-sub" />
+							<span id="tuan-recommend">推荐时间：每周二,四,六(节假日除外)</span>
+						</div>
+					</li>
+					<li class="kefu">
+						客服电话：
+						<span>400-678-0068</span>
+					</li>
+				</ul>
+				<div class="userAbout">
+					<span>
+						您好，欢迎来Z团购物！请
+						<a href="#" class="loginNow">登录</a>|
+					</span>
+					<a href="#" class="registerNow">注册|</a>
+					<a href="#">我的订单</a>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper">
+			<h1 class="logo_fl">
+				<a href="#" class="zol_logo"><img src="/static1/img/logo_03.jpg" /></a>
+			</h1>
+			<ul class="commitment">
+				<li><a href="#"><img src="/static1/img/diliver.jpg" /></a></li>
+				<li><a href="#"><img src="/static1/img/propei.jpg" /></a></li>
+				<li><a href="#"><img src="/static1/img/proservice.jpg" /></a></li>
+			</ul>
+			<div class="search_box">
+				<input type="text" value="请输入商品名" class="text" />
+				<input type="submit" value="搜索" class="btn" />
+			</div>
+		</div>
+		<div class="navBar">
+			<div class="wrapper_next">
+				<ul class="nav_list">
+					<li><a href="#">首页</a></li>
+					<li><a href="#">单品团</a></li>
+					<li><a href="#">预约团</a></li>
+					<li><a href="#">即将开团</a></li>
+				</ul>
+				<div class="history">
+					<span>最近浏览</span>
+					<div class="-hide">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--头部内容结束-->
+
+
+
+	<!--产品展示开始-->
+	<div class="wrapperPro">
+		<div class="descript">
+			<!--json数据-->
+{#            <p>X27新版本上市] 4800万广角夜景三摄, 4000mAh大电池,零界全面屏,升降摄像头!</p>#}
+		</div>
+		<div class="showPro">
+			<div class="focusBox">
+				<ul class="showImg">
+					<img class="smallImg" src="{{ details.productimg }}" alt="" />
+					<div class="focus"></div>
+				</ul>
+
+				<ul class="smallImg">
+<!--  -->
+				</ul>
+			</div>
+			<div class="detail">
+				<p style="color:#000;font-size:14px;">{{ details.productnamae }}</p>
+				<p>X27新版本上市] 4800万广角夜景三摄, 4000mAh大电池,零界全面屏,升降摄像头!</p>
+				<div class="singlePrice">
+					售价：<span>￥</span><!--  -->
+						<span>{{ details.price }}</span>
+				</div>
+				<div class="buyNumber">
+					<strong>购买数量：</strong><span>-</span><i>1</i><span>+</span> <b> 件 ( 限购96件 ) </b>
+				</div>
+				<div class="purchase">
+					<div>立即购买</div>
+					<div>加入购物车</div>
+				</div>
+			</div>
+			<div class="bigArea">
+				<img class="bigImg" src="/static1/img/huawei.jpg" alt="" />
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!--页脚开始-->
+	<div class="footer">
+		<div class="wrapper">
+			<div class="footer-service">
+				<dl class="hotLine">
+					<dt>400-678-0068</dt>
+					<dd>
+						<p>工作日&nbsp;9:00-18:00</p>
+						<div class="Ztuan">
+							<div class="title">Z团官方微信:</div>
+							<img src="/static1/img/rightcode.jpg" />
+							<a href="#">关注新浪微博</a>
+						</div>
+					</dd>
+				</dl>
+				<dl>
+					<dt>购物指南</dt>
+					<dd>
+						<p><a href="#">购物流程</a></p>
+						<p><a href="#">优惠券红包</a></p>
+						<p><a href="#">常见问题</a></p>
+					</dd>
+				</dl>
+				<dl>
+					<dt>售后服务</dt>
+					<dd>
+						<p><a href="#">申请退款</a></p>
+						<p><a href="#">售后政策</a></p>
+						<p><a href="#">售后问题</a></p>
+					</dd>
+				</dl>
+				<dl>
+					<dt>团购特点</dt>
+					<dd>
+						<p><a href="#">Z团优势</a></p>
+						<p><a href="#">参团效果</a></p>
+						<p><a href="#">往期参团</a></p>
+					</dd>
+				</dl>
+				<dl>
+					<dt>商务合作</dt>
+					<dd>
+						<p><a href="#">媒体合作</a></p>
+						<p><a href="#">团购合作</a></p>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="footer-nav-bar">
+			<div class="wrapper">
+				<div class="partners">
+					<span class="lable">合作伙伴：</span>
+					<p>
+						<a href="#">卷皮网</a>&nbsp;|
+						<a href="#">电子商务网</a>&nbsp;|
+						<a href="#">中国电子银行网</a>&nbsp;|
+						<a href="#">华为商城</a>&nbsp;|
+						<a href="#">三帝贸易网</a>&nbsp;|
+						<a href="#">团购</a>&nbsp;|
+						<a href="#">eNet商城</a>&nbsp;|
+						<a href="#">易趣</a>&nbsp;|
+						<a href="#">家具网</a>&nbsp;|
+						<a href="#">手表品牌大全</a>&nbsp;|
+						<a href="#">钻石</a>&nbsp;|
+						<a href="#">一休女性网</a>&nbsp;|
+						<a href="#">华强电子网</a>&nbsp;|
+						<a href="#">电子产品世界</a>&nbsp;|
+						<a href="#">挖东西比价网</a>&nbsp;|
+						<a href="#">广告网</a>&nbsp;|
+						<a href="#">易购网</a>&nbsp;|
+					</p>
+				</div>
+				<div class="footer-nav">
+					<a href="#">中关村在线</a>&nbsp;|
+					<a href="#">ZOL商城</a>&nbsp;|
+					<a href="#">Z团</a>&nbsp;|
+					<a href="#">限时抢购</a>&nbsp;|
+					<a href="#">经销商</a>&nbsp;|
+					<a href="#">产品报价</a>&nbsp;|
+					<a href="#">论坛</a>&nbsp;|
+					<a href="#">问答</a>&nbsp;|
+				</div>
+				<div class="copyRight">
+					<a href="#">关于ZOL商城</a>&nbsp;|
+					<a href="#">帮助中心</a>&nbsp;|
+					<a href="#">联系我们</a>&nbsp;|
+					<a href="#">发展历程</a>&nbsp;|
+					<a href="#">媒体报道</a>&nbsp;|
+				</div>
+				<div class="copyRight">
+					<span>
+						&copy;2016 中关村在线 版权所有.
+						<a href="#">京ICP证150096号</a>&nbsp;&nbsp;
+						京ICP备14061128号&nbsp;&nbsp;
+						<a href="#">京公网安备11010802020026号</a>
+						<a href="#">网络文化经营许可证京网文[2016]1631-199</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

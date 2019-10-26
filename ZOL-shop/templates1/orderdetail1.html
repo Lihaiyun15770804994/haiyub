@@ -1,0 +1,106 @@
+	<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/static1/css/cart.css"  rel="stylesheet" type="text/css"/>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<script type="text/javascript" src="/static1/js/jquery.cookie.js" ></script>
+		<script type="text/javascript" src="/static1/js/cart.js" ></script>
+	</head>
+	<body>
+		<!--头部-->
+		<div class="public-header">
+			<div class="top-bar">
+				<div class="container">
+					<ul class="site-about">
+						<li><a href="#">ZOL商城</a></li>
+						<li><a href="#">收藏</a></li>
+						<li class="rss">
+							<span class="title">订阅团购推荐</span>
+							<div class="rss-layer">
+								<p>请输入您的电子邮箱地址</p>
+								<input type="text" value="" class="search-txt"/>
+								<input type="submit" value="确定" class="search-sub"/>
+								<span id="tuan-recommend">推荐时间：每周二,四,六(节假日除外)</span>
+							</div>
+						</li>
+						<li class="kefu">
+							客服电话：
+							<span>400-678-0068</span>
+						</li>
+					</ul>
+					<div class="userAbout">
+                        {% if not login %}
+                        <span>
+							您好，欢迎来Z团购物！请
+							<a href="{% url 'users:login' %}" class="loginNow">登录</a>|
+						</span>
+						<a href="{% url 'users:register' %}" class="registerNow">注册|</a>
+                        {% else %}
+                            <a href="#">欢迎你,亲爱的用户{{ username }}</a>
+                            <a href="{% url 'users:logout' %}">退出登录</a>
+                        {% endif %}
+
+						<a href="{% url 'orders:order' %}">我的订单</a>
+					</div>
+				</div>
+			</div>
+			<!--logo-->
+			<div class="wrapper">
+				<h1 class="logo_fl">
+					<a href="#" class="zol_logo"><img src="/static1/img/logo_03.jpg"/></a>
+				</h1>
+				<ul class="commitment">
+					<li><a href="#"><img src="/static1/img/diliver.jpg"/></a></li>
+					<li><a href="#"><img src="/static1/img/propei.jpg"/></a></li>
+					<li><a href="#"><img src="/static1/img/proservice.jpg"/></a></li>
+				</ul>
+				<div class="search_box">
+					<input type="text" value="请输入商品名" class="text" />
+					<input type="submit" value="搜索" class="btn"/>
+				</div>
+			</div>
+			<!--商品清单-->
+			<div class="wrapper">
+				<div class="container">
+{#					<div class="container-hd">选择商品类型和数量</div>#}
+					<div class="step-section">
+						<div class="carList">
+							<table>
+								<tr>
+									<th class="goods"><span>商品图片</span></th>
+									<th class="unitprice"><span>商品id</span></th>
+									<th class="suits"><span>商品名称</span></th>
+									<th class="total"><span>商品数量</span></th>
+									<th class="inventory"><span>价格</span></th>
+								</tr>
+                            {% for foo in data_list %}
+
+                                <tr class="current">
+                                
+                                    <td class='goods'style="text-align: center"><img src="{{ foo.img }}" alt="{{ foo.name }}"></td>
+                                    <td class='unit-price'style="text-align: center">{{ foo.id }}</td>
+                                    <td class='suitId' style="text-align: center">{{ foo.name }}</td>
+                                    <td class='total' style="text-align: center">{{ foo.num }}</td>
+                                    <td class='inventory'>{{ foo.price }}</td>
+
+
+                                </tr>
+							{% endfor %}
+
+							</table>
+
+{#							<div class="_link">#}
+{#                                <a href="{% url 'orders:index' %}"><input type="button" value="下单" class="caculate"/></a>#}
+{#							</div>#}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--页脚-->
+
+		</div>
+	</body>
+</html>
+
